@@ -4,14 +4,19 @@ class Employee {
         this.name = name;
         this.id = id;
         this.email = email;
-        getName();
-        getId();
-        getEmail();
-        getRole();
-        return Employee
-
     }
-}
-const bob = new Employee("Bob", 3, "bob@fakeemail.com")
+        getName(){
+            return this.name
+        }
+        getId(){
+            return this.id
+        };
+        getEmail(){
+            return this.email
+        };
+        getRole(){
+            return 'Employee'
+        };
+    }
 
 module.exports = Employee
