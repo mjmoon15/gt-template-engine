@@ -12,9 +12,9 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 //import employee questions
-const managerQuestions = require("./../data/managerQuestions");
-const engineerQuestions = require("./../data/engineerQuestions");
-const internQuestions = require("./../data/internQuestions");
+const managerQuestions = require("./data/managerQuestions");
+const engineerQuestions = require("./data/engineerQuestions");
+const internQuestions = require("./data/internQuestions");
 
 const employees = [];
 const employeeType = {
