@@ -13,7 +13,7 @@
 
   [Installation](#installation)  
   [Usage](#usage)  
-  [License](#license)  
+  [License](#MIT_license)  
   [Contributing](#contributing)  
   [Tests](#tests)  
   [Contact](#contact)
@@ -31,7 +31,7 @@
 
   [A video of the app in use can be found here](https://drive.google.com/file/d/1iECylX_X8K1q5jVYLksPJHtTCkLS7EwQ/view?usp=sharing)
   
-  From the command line, run node index.js and follow prompts. 
+  From the command line, run node app.js and follow prompts. 
 
   ![Template-generator finished product](Develop/Assets/template-generator.png "Initial prompts in command line")
 
@@ -40,7 +40,7 @@
   
   ---
 
-  ## MIT License
+  ## MIT_License
 
     Copyright (c) [2020] [Mark J Mooney]
 
