@@ -11,11 +11,112 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const managerQuestions = require("./../data/managerQuestions")
+const managerQuestions = require("./../data/managerQuestions");
+const engineerQuestions = require("./../data/engineerQuestions");
+const internQuestions = require("./../data/internQuestions");
+
+const employees = [];
+const employeeType = {
+    type: "list",
+    name: "employeeType",
+    message: "Which type of employee would you like to add?",
+    choices: ["Engineer", "Intern"]
+}
+const moreEmployees = {
+    type: "confirm",
+    name: "addAnother",
+    message: "Do you want to add another employee?"
+}
 
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+
+//ask the manager things
+const getManagerInfo = () => {
+    inquirer
+        .prompt(managerQuestions())
+        .then((results) => {
+            results.employeeType = 'Manager';
+            getMoreEmployees(results);
+        })
+        .catch((err) =>{
+            console.log(err)
+        })
+}
+//ask the other employee things
+const getEmployeeInfo = () => {
+    inquirer
+        .prompt(employeeType)
+        .then((results) => {
+            //switch/case to determine employee type and then ask correct sets of questions
+            switch (results.employeeType) {
+                case 'Engineer':
+                    inquirer
+                        .prompt(engineerQuestions())
+                        .then((res) => {
+                            res.employeeType = 'Engineer';
+                            getMoreEmployees(res)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                    break;
+                case 'Intern':
+                    inquirer   
+                        .prompt(internQuestions())
+                        .then((res) => {
+                            res.employeeType = 'Intern';
+                            getMoreEmployees(res)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                    break;
+            }
+        })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
+//keep getting more employees?
+const getMoreEmployees = (results) => {
+    const { name, id, email } = results;
+    inquirer
+        .prompt(moreEmployees)
+        .then((res) => {
+            let newEmployee;
+            //switch/case for creating new employee object types
+            switch (results.employeeType) {
+                case 'Manager':
+                    newEmployee = new Manager(name, id, email, results.officeNumber);
+                    break;
+                case 'Engineer':
+                    newEmployee = new Engineer(name, id, email, results.github);
+                    break;
+                case 'Intern':
+                    newEmployee = new Intern(name, id, email, results.school)
+                    break;
+            }
+            employees.push(newEmployee);
+            if (res.addAnother) {
+                getEmployeeInfo()
+            } else {
+                const renderInfo = render(employees);
+                fs.writeFile(outputPath, renderInfo, (err) => {
+                    if (err) throw err;
+                    console.log('Saved file')
+                })
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+
+}
+//fire it off
+getManagerInfo()
 
 
 
